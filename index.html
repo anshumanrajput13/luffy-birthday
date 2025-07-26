@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>🎂 Happy Birthday, Luffy!</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body, html {
+      height: 100%;
+      font-family: 'Segoe UI', sans-serif;
+      overflow: hidden;
+    }
+
+    /* 🔥 Fullscreen Video Background */
+    #bg-video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      min-width: 100%;
+      min-height: 100%;
+      object-fit: cover;
+      z-index: -1;
+    }
+
+    /* 🎂 Content Styling */
+    .container {
+      position: relative;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      color: white;
+      padding: 20px;
+      backdrop-filter: blur(5px);
+    }
+
+    textarea, input {
+      padding: 12px;
+      margin: 10px;
+      width: 300px;
+      border-radius: 10px;
+      border: none;
+      font-size: 16px;
+      background-color: rgba(255, 255, 255, 0.85);
+    }
+
+    button {
+      padding: 12px 24px;
+      font-size: 18px;
+      background-color: #ff7675;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    h1 {
+      font-size: 40px;
+      margin-bottom: 10px;
+      text-shadow: 2px 2px #000;
+    }
+
+    p {
+      font-size: 18px;
+      margin-bottom: 20px;
+      text-shadow: 1px 1px #000;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 🔥 Background Video -->
+  <video autoplay muted loop id="bg-video">
+    <source src="https://cdn.discordapp.com/attachments/1398771336632860843/1398772878303953128/Corazon_Purple_Ez.mp4?ex=68869442&is=688542c2&hm=b0623bffae1a0719b48de4b7990cfef77202978e483442745ba8e3595ace8d25" type="video/mp4">
+    Your browser does not support HTML5 video.
+  </video>
+
+  <!-- 🎁 Birthday Form -->
+  <div class="container">
+    <h1>🎉 Happy Birthday Luffy! 🎉</h1>
+    <p>Send your special birthday wish below 💖</p>
+
+    <form id="wishForm">
+      <textarea placeholder="Write your birthday wish..." id="wish" required></textarea><br>
+      <input type="text" placeholder="Your Name" id="name" required /><br>
+      <button type="submit">Send Wish</button>
+    </form>
+  </div>
+
+  <script>
+    const form = document.getElementById('wishForm');
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const wish = document.getElementById('wish').value;
+      const name = document.getElementById('name').value;
+
+      await fetch("http://localhost:3000/send-wish", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ wish, name })
+      });
+
+      alert("🎈 Wish sent successfully!");
+      form.reset();
+    });
+  </script>
+
+</body>
+</html>
